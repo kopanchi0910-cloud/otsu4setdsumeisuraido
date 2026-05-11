@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>危険物乙種第4類 最適勉強法 — プレゼンテーション</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #FFFFFF; --text: #0F172A; --text-2: #475569; --muted: #94A3B8;
+  --primary: #1E3A8A; --primary-2: #3B5BB8; --primary-light: #DBEAFE;
+  --accent: #F59E0B; --accent-light: #FEF3C7;
+  --persona-a: #0EA5E9; --persona-a-light: #E0F2FE;
+  --persona-b: #F97316; --persona-b-light: #FFF7ED;
+  --success: #10B981; --danger: #EF4444;
+  --line: #E2E8F0; --surface: #F8FAFC;
+  --easing: cubic-bezier(0.22, 1, 0.36, 1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+*, *::before, *::after { min-width: 0; min-height: 0; }
+body { font-family: 'Noto Sans JP', sans-serif; font-feature-settings: "palt"; word-break: keep-all; overflow-wrap: break-word; -webkit-font-smoothing: antialiased; background: #1a1a2e; }
+.slide { position: absolute; inset: 0; padding: clamp(32px, 4vh, 56px) clamp(44px, 5.5vw, 88px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 0.45s ease; overflow: hidden; background: var(--bg); }
+.slide.active { opacity: 1; visibility: visible; pointer-events: auto; }
+.vertical-jp { writing-mode: vertical-rl; text-orientation: upright; }
+@keyframes bar-grow { from { width: 0; } to { width: var(--target); } }
+@keyframes col-grow { from { height: 0; } to { height: var(--target); } }
+@keyframes line-draw { to { stroke-dashoffset: 0; } }
+@keyframes rise { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--primary), var(--accent)); transition: width 0.4s ease; z-index: 1000; }
+.page-num { position: fixed; bottom: 16px; right: 22px; font-size: 11px; color: var(--muted); font-weight: 700; letter-spacing: 0.12em; font-variant-numeric: tabular-nums; z-index: 1000; }
+
+/* ===== S1: タイトル ===== */
+#s1 { background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 60%, #1E40AF 100%); color: white; display: flex; flex-direction: column; justify-content: center; }
+#s1 .eyebrow { font-size: 12px; font-weight: 700; letter-spacing: 0.2em; color: var(--accent); text-transform: uppercase; margin-bottom: 16px; }
+#s1 h1 { font-size: clamp(26px, 3.8vw, 48px); font-weight: 900; line-height: 1.2; margin-bottom: 14px; }
+#s1 h1 span { color: var(--accent); }
+#s1 .sub { font-size: clamp(14px, 1.5vw, 17px); color: #93C5FD; margin-bottom: 32px; font-weight: 500; }
+#s1 .personas { display: flex; gap: 16px; margin-bottom: 32px; }
+#s1 .ptag { padding: 14px 20px; border-radius: 12px; flex: 1; max-width: 360px; }
+#s1 .ptag.a { background: rgba(14,165,233,0.15); border: 1.5px solid rgba(14,165,233,0.5); }
+#s1 .ptag.b { background: rgba(249,115,22,0.15); border: 1.5px solid rgba(249,115,22,0.5); }
+#s1 .ptag .plabel { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; margin-bottom: 5px; }
+#s1 .ptag.a .plabel { color: var(--persona-a); }
+#s1 .ptag.b .plabel { color: var(--persona-b); }
+#s1 .ptag .ptitle { font-size: 15px; font-weight: 900; color: white; margin-bottom: 4px; }
+#s1 .ptag .pdesc { font-size: 12px; color: #CBD5E1; line-height: 1.5; }
+#s1 .stats { display: flex; gap: 28px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 22px; }
+#s1 .stat .snum { font-size: clamp(20px, 2.5vw, 32px); font-weight: 900; color: var(--accent); }
+#s1 .stat .slabel { font-size: 11px; color: #94A3B8; margin-top: 2px; }
+
+/* ===== S2: 課題対比 ===== */
+#s2 { display: grid; grid-template-rows: auto 1fr; gap: 18px; }
+#s2 .hdr h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s2 .hdr p { font-size: 13px; color: var(--text-2); margin-top: 5px; }
+#s2 .body { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+#s2 .pcol { border-radius: 14px; padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+#s2 .pcol.a { background: var(--persona-a-light); border: 2px solid var(--persona-a); }
+#s2 .pcol.b { background: var(--persona-b-light); border: 2px solid var(--persona-b); }
+#s2 .pcol .colh { display: flex; align-items: center; gap: 10px; }
+#s2 .pcol .cbadge { width: 34px; height: 34px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 15px; color: white; flex-shrink: 0; }
+#s2 .pcol.a .cbadge { background: var(--persona-a); }
+#s2 .pcol.b .cbadge { background: var(--persona-b); }
+#s2 .pcol .ctitle { font-size: 16px; font-weight: 900; }
+#s2 .pcol.a .ctitle { color: #0369A1; }
+#s2 .pcol.b .ctitle { color: #C2410C; }
+#s2 .pcol .csub { font-size: 11px; color: var(--text-2); }
+#s2 .iitem { background: white; border-radius: 9px; padding: 12px 14px; }
+#s2 .iitem .ilabel { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 3px; }
+#s2 .pcol.a .ilabel { color: var(--persona-a); }
+#s2 .pcol.b .ilabel { color: var(--persona-b); }
+#s2 .iitem .itext { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.4; }
+#s2 .iitem .idesc { font-size: 11px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
+#s2 .solbadge { display: flex; align-items: center; gap: 8px; background: var(--primary); border-radius: 9px; padding: 11px 14px; margin-top: auto; }
+#s2 .solbadge span { font-size: 12px; font-weight: 700; color: white; }
+
+/* ===== S3: ダッシュボード ===== */
+#s3 { display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s3 .hdr { display: flex; justify-content: space-between; align-items: flex-end; }
+#s3 .hdr h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s3 .hdr .hnote { font-size: 11px; color: var(--muted); }
+#s3 .dgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto; gap: 14px; }
+#s3 .dcard { background: var(--surface); border-radius: 13px; padding: 18px; border: 1px solid var(--line); }
+#s3 .dcard.hl { background: var(--primary); }
+#s3 .dcard.wide { grid-column: span 2; }
+#s3 .clabel { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: var(--muted); margin-bottom: 7px; }
+#s3 .dcard.hl .clabel { color: #93C5FD; }
+#s3 .bignum { font-size: clamp(26px, 3.2vw, 40px); font-weight: 900; color: var(--primary); line-height: 1; }
+#s3 .dcard.hl .bignum { color: var(--accent); }
+#s3 .cdesc { font-size: 12px; color: var(--text-2); margin-top: 5px; line-height: 1.4; }
+#s3 .dcard.hl .cdesc { color: #BFDBFE; }
+#s3 .sublist { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
+#s3 .srow { display: flex; align-items: center; gap: 8px; }
+#s3 .sdot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+#s3 .sname { font-size: 13px; font-weight: 700; color: var(--text); flex: 1; }
+#s3 .sq { font-size: 12px; color: var(--text-2); width: 36px; text-align: right; }
+#s3 .bwrap { flex: 1; display: flex; align-items: center; gap: 7px; }
+#s3 .btrack { background: var(--line); height: 7px; flex: 1; border-radius: 4px; overflow: hidden; position: relative; }
+#s3 .bfill { position: absolute; inset: 0 auto 0 0; height: 100%; width: 0; border-radius: 4px; }
+#s3 .pline { position: absolute; left: 60%; top: -3px; bottom: -3px; width: 2px; background: var(--danger); z-index: 2; }
+#s3 .plabel { font-size: 10px; color: var(--danger); font-weight: 700; width: 60px; }
+#s3 .taghard { background: #FEE2E2; color: #B91C1C; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+#s3 .tageasy { background: #DCFCE7; color: #166534; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; }
+#s3 .dtable { width: 100%; border-collapse: collapse; margin-top: 7px; }
+#s3 .dtable th { font-size: 11px; font-weight: 700; color: var(--muted); padding: 3px 7px; text-align: left; border-bottom: 1px solid var(--line); }
+#s3 .dtable td { font-size: 12px; padding: 7px 7px; border-bottom: 1px solid var(--line); }
+#s3 .dtable tr:last-child td { border-bottom: none; }
+
+/* ===== S4: 失敗パターン ===== */
+#s4 { display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s4 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s4 .s4s { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+#s4 .body { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; }
+#s4 .csect { display: flex; flex-direction: column; gap: 10px; }
+#s4 .ctitle { font-size: 12px; font-weight: 700; color: var(--text-2); margin-bottom: 2px; }
+#s4 .bgrp { display: flex; flex-direction: column; gap: 8px; }
+#s4 .brow { display: flex; align-items: center; gap: 8px; }
+#s4 .blabel { font-size: 12px; font-weight: 600; color: var(--text); width: 150px; flex-shrink: 0; text-align: right; }
+#s4 .btrack2 { flex: 1; background: var(--line); height: 26px; border-radius: 4px; position: relative; overflow: hidden; }
+#s4 .bfill2 { position: absolute; inset: 0 auto 0 0; width: 0; height: 100%; border-radius: 4px; }
+#s4 .bfill2.d { background: linear-gradient(90deg, #EF4444, #F87171); }
+#s4 .bfill2.w { background: linear-gradient(90deg, #F59E0B, #FCD34D); }
+#s4 .bfill2.b { background: linear-gradient(90deg, #3B82F6, #60A5FA); }
+#s4 .bval { font-size: 13px; font-weight: 900; width: 34px; flex-shrink: 0; }
+#s4 .isect { display: flex; flex-direction: column; gap: 11px; }
+#s4 .icard { background: var(--surface); border-radius: 11px; padding: 13px; border-left: 4px solid; }
+#s4 .icard.r { border-color: var(--danger); }
+#s4 .icard.am { border-color: var(--accent); }
+#s4 .icard.bl { border-color: var(--primary-2); }
+#s4 .icard .iclabel { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 3px; }
+#s4 .icard.r .iclabel { color: var(--danger); }
+#s4 .icard.am .iclabel { color: var(--accent); }
+#s4 .icard.bl .iclabel { color: var(--primary-2); }
+#s4 .icard .ictext { font-size: 13px; font-weight: 700; color: var(--text); line-height: 1.4; }
+#s4 .icard .icdesc { font-size: 11px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
+#s4 .callout { background: #FEF2F2; border: 1.5px solid #FECACA; border-radius: 9px; padding: 12px 16px; }
+#s4 .callout strong { font-size: 13px; font-weight: 900; color: #B91C1C; }
+#s4 .callout p { font-size: 12px; color: #7F1D1D; line-height: 1.4; margin-top: 3px; }
+
+/* ===== S5: 合格率推移 ===== */
+#s5 { display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s5 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s5 .s5s { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+#s5 .body { display: grid; grid-template-columns: 2fr 1fr; gap: 20px; }
+#s5 .cwrap { display: flex; flex-direction: column; gap: 8px; }
+#s5 .legend { display: flex; gap: 14px; margin-bottom: 2px; }
+#s5 .li { display: flex; align-items: center; gap: 5px; font-size: 12px; color: var(--text-2); font-weight: 600; }
+#s5 .ld { width: 14px; height: 3px; border-radius: 2px; }
+#s5 .svgwrap { width: 100%; }
+#s5 .svgwrap svg { width: 100%; height: auto; }
+#s5 .rpanel { display: flex; flex-direction: column; gap: 12px; }
+#s5 .ccard { background: var(--surface); border-radius: 11px; padding: 14px; border: 1px solid var(--line); }
+#s5 .ccard .cctitle { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); margin-bottom: 8px; }
+#s5 .crow { display: flex; align-items: center; justify-content: space-between; padding: 5px 0; border-bottom: 1px solid var(--line); }
+#s5 .crow:last-child { border-bottom: none; }
+#s5 .crow .crname { font-size: 13px; font-weight: 600; color: var(--text); }
+#s5 .crow .crrate { font-size: 14px; font-weight: 900; }
+#s5 .crow.actrow { background: var(--primary-light); margin: 0 -6px; padding: 5px 6px; border-radius: 5px; border-bottom: none; }
+#s5 .crow.actrow .crname { color: var(--primary); font-weight: 900; }
+#s5 .ki { background: var(--primary); border-radius: 11px; padding: 16px; color: white; }
+#s5 .ki .kilabel { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: #93C5FD; margin-bottom: 5px; }
+#s5 .ki .kitext { font-size: 13px; font-weight: 700; line-height: 1.5; }
+#s5 .r3 { background: var(--surface); border-radius: 11px; padding: 14px; border: 1px solid var(--line); }
+#s5 .r3 .r3title { font-size: 10px; font-weight: 700; color: var(--muted); letter-spacing: 0.12em; margin-bottom: 7px; }
+#s5 .r3item { display: flex; gap: 7px; font-size: 12px; color: var(--text-2); margin-bottom: 5px; }
+#s5 .r3item span:first-child { color: var(--danger); font-weight: 700; flex-shrink: 0; }
+
+/* ===== S6: スケジュール ===== */
+#s6 { display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s6 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s6 .s6s { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+#s6 .tls { display: flex; flex-direction: column; gap: 16px; }
+#s6 .tlb { border-radius: 13px; padding: 18px 22px; }
+#s6 .tlb.a { background: var(--persona-a-light); border: 2px solid var(--persona-a); }
+#s6 .tlb.b { background: var(--persona-b-light); border: 2px solid var(--persona-b); }
+#s6 .tlh { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+#s6 .tlbadge { padding: 3px 11px; border-radius: 20px; font-size: 10px; font-weight: 700; color: white; }
+#s6 .tlb.a .tlbadge { background: var(--persona-a); }
+#s6 .tlb.b .tlbadge { background: var(--persona-b); }
+#s6 .tltitle { font-size: 14px; font-weight: 900; }
+#s6 .tlb.a .tltitle { color: #0369A1; }
+#s6 .tlb.b .tltitle { color: #C2410C; }
+#s6 .tlhrs { font-size: 12px; color: var(--text-2); margin-left: auto; font-weight: 600; }
+#s6 .phases { display: grid; gap: 8px; }
+#s6 .tlb.a .phases { grid-template-columns: 1fr 1fr 1fr 1fr; }
+#s6 .tlb.b .phases { grid-template-columns: 1fr 1fr 1fr; }
+#s6 .ph { background: white; border-radius: 9px; padding: 11px 13px; }
+#s6 .phwk { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; margin-bottom: 3px; }
+#s6 .tlb.a .phwk { color: var(--persona-a); }
+#s6 .tlb.b .phwk { color: var(--persona-b); }
+#s6 .phname { font-size: 13px; font-weight: 900; color: var(--text); line-height: 1.3; }
+#s6 .phdetail { font-size: 11px; color: var(--text-2); margin-top: 3px; line-height: 1.4; }
+#s6 .phhrs { font-size: 11px; font-weight: 700; margin-top: 5px; }
+#s6 .tlb.a .phhrs { color: var(--persona-a); }
+#s6 .tlb.b .phhrs { color: var(--persona-b); }
+
+/* ===== S7: 科目別攻略 ===== */
+#s7 { display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s7 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s7 .s7s { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+#s7 .sgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; }
+#s7 .sc { border-radius: 13px; overflow: hidden; border: 1px solid var(--line); display: flex; flex-direction: column; }
+#s7 .sch { padding: 14px 16px; }
+#s7 .sch.law { background: linear-gradient(135deg, #1E3A8A, #3B5BB8); }
+#s7 .sch.phys { background: linear-gradient(135deg, #B91C1C, #EF4444); }
+#s7 .sch.nat { background: linear-gradient(135deg, #065F46, #10B981); }
+#s7 .scsubj { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: rgba(255,255,255,0.7); margin-bottom: 3px; }
+#s7 .sctitle { font-size: 14px; font-weight: 900; color: white; line-height: 1.3; }
+#s7 .scmeta { display: flex; gap: 5px; margin-top: 7px; }
+#s7 .sctag { font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px; background: rgba(255,255,255,0.2); color: white; }
+#s7 .scbody { padding: 12px 16px; background: white; flex: 1; display: flex; flex-direction: column; gap: 9px; }
+#s7 .ps { padding: 9px 11px; border-radius: 7px; }
+#s7 .ps.a { background: var(--persona-a-light); }
+#s7 .ps.b { background: var(--persona-b-light); }
+#s7 .pslabel { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; margin-bottom: 3px; }
+#s7 .ps.a .pslabel { color: var(--persona-a); }
+#s7 .ps.b .pslabel { color: var(--persona-b); }
+#s7 .pspri { font-size: 12px; font-weight: 900; color: var(--text); margin-bottom: 2px; }
+#s7 .pstip { font-size: 11px; color: var(--text-2); line-height: 1.4; }
+#s7 .tips { display: flex; flex-direction: column; gap: 5px; }
+#s7 .tiprow { display: flex; align-items: flex-start; gap: 5px; }
+#s7 .tipdot { width: 5px; height: 5px; border-radius: 50%; background: var(--primary-2); flex-shrink: 0; margin-top: 5px; }
+#s7 .tiptext { font-size: 11px; color: var(--text-2); line-height: 1.4; }
+
+/* ===== S8: 計算問題 ===== */
+#s8 { display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s8 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s8 .s8s { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+#s8 .cgrid { display: grid; grid-template-columns: 1fr 1fr 1fr; grid-template-rows: 1fr auto; gap: 14px; }
+#s8 .cc { background: var(--surface); border-radius: 13px; padding: 18px; border: 1px solid var(--line); display: flex; flex-direction: column; gap: 11px; }
+#s8 .ccnum { width: 30px; height: 30px; border-radius: 50%; background: var(--primary); color: white; font-size: 13px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+#s8 .cctype { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; color: var(--muted); }
+#s8 .cctitle { font-size: 16px; font-weight: 900; color: var(--text); line-height: 1.3; }
+#s8 .ccform { background: #0F172A; border-radius: 7px; padding: 11px 13px; font-family: 'Courier New', monospace; font-size: 13px; color: #F1F5F9; line-height: 1.5; }
+#s8 .ccform span { color: var(--accent); }
+#s8 .ccsteps { display: flex; flex-direction: column; gap: 5px; }
+#s8 .strow { display: flex; gap: 7px; align-items: flex-start; }
+#s8 .stnum { width: 17px; height: 17px; border-radius: 50%; background: var(--primary-light); color: var(--primary); font-size: 10px; font-weight: 900; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
+#s8 .sttext { font-size: 12px; color: var(--text-2); line-height: 1.4; }
+#s8 .cctip { background: var(--accent-light); border-radius: 7px; padding: 9px 11px; border-left: 3px solid var(--accent); }
+#s8 .cctip .ctlabel { font-size: 9px; font-weight: 700; letter-spacing: 0.12em; color: var(--accent); margin-bottom: 2px; }
+#s8 .cctip .cttext { font-size: 12px; font-weight: 700; color: var(--text); line-height: 1.4; }
+#s8 .bcallout { grid-column: span 3; background: #1E3A8A; border-radius: 11px; padding: 14px 18px; display: flex; align-items: center; justify-content: space-between; }
+#s8 .bcallout .bctext { font-size: 13px; font-weight: 700; color: white; }
+#s8 .bcallout .bchi { color: var(--accent); font-size: 17px; font-weight: 900; }
+
+/* ===== S9: 教材マトリックス ===== */
+#s9 { display: grid; grid-template-rows: auto 1fr auto; gap: 14px; }
+#s9 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: var(--primary); }
+#s9 .s9s { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+#s9 table { width: 100%; border-collapse: collapse; }
+#s9 table th { background: var(--primary); color: white; font-size: 12px; font-weight: 700; padding: 9px 11px; text-align: center; }
+#s9 table th:first-child { text-align: left; background: #0F172A; }
+#s9 table td { padding: 9px 11px; border-bottom: 1px solid var(--line); font-size: 12px; vertical-align: middle; }
+#s9 table tr:nth-child(even) td { background: var(--surface); }
+#s9 table tr.rec td { background: #DBEAFE; }
+#s9 table tr.rec td:first-child { font-weight: 900; color: var(--primary); }
+#s9 .sdot { display: inline-block; width: 9px; height: 9px; border-radius: 50%; }
+#s9 .sw { display: flex; gap: 3px; justify-content: center; }
+#s9 .tagrec { background: var(--primary); color: white; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 9px; margin-left: 5px; }
+#s9 .taga { background: var(--persona-a-light); color: #0369A1; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 9px; }
+#s9 .tagb { background: var(--persona-b-light); color: #C2410C; font-size: 9px; font-weight: 700; padding: 1px 5px; border-radius: 9px; }
+#s9 .lrow { display: flex; gap: 14px; align-items: center; }
+#s9 .lrow span { font-size: 11px; color: var(--text-2); }
+
+/* ===== S10: アクションプラン ===== */
+#s10 { background: linear-gradient(135deg, #0F172A 0%, #1E3A8A 100%); color: white; display: grid; grid-template-rows: auto 1fr; gap: 16px; }
+#s10 h2 { font-size: clamp(17px, 2vw, 24px); font-weight: 900; color: white; }
+#s10 .s10s { font-size: 13px; color: #94A3B8; margin-top: 4px; }
+#s10 .agrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+#s10 .acol { border-radius: 14px; padding: 20px; display: flex; flex-direction: column; gap: 14px; }
+#s10 .acol.a { background: rgba(14,165,233,0.12); border: 1.5px solid rgba(14,165,233,0.4); }
+#s10 .acol.b { background: rgba(249,115,22,0.12); border: 1.5px solid rgba(249,115,22,0.4); }
+#s10 .ach { display: flex; align-items: center; gap: 9px; }
+#s10 .acbadge { padding: 3px 12px; border-radius: 20px; font-size: 10px; font-weight: 700; }
+#s10 .acol.a .acbadge { background: var(--persona-a); color: white; }
+#s10 .acol.b .acbadge { background: var(--persona-b); color: white; }
+#s10 .actitle { font-size: 14px; font-weight: 900; color: white; }
+#s10 .acsub { font-size: 11px; color: #CBD5E1; }
+#s10 .stlist { display: flex; flex-direction: column; gap: 11px; }
+#s10 .sti { display: flex; gap: 12px; align-items: flex-start; }
+#s10 .stc { width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 900; flex-shrink: 0; }
+#s10 .acol.a .stc { background: rgba(14,165,233,0.25); color: var(--persona-a); border: 1.5px solid rgba(14,165,233,0.5); }
+#s10 .acol.b .stc { background: rgba(249,115,22,0.25); color: var(--persona-b); border: 1.5px solid rgba(249,115,22,0.5); }
+#s10 .staction { font-size: 13px; font-weight: 700; color: white; margin-bottom: 3px; }
+#s10 .stdetail { font-size: 11px; color: #CBD5E1; line-height: 1.4; }
+#s10 .combox { grid-column: span 2; background: rgba(245,158,11,0.1); border: 1.5px solid rgba(245,158,11,0.4); border-radius: 11px; padding: 14px 18px; }
+#s10 .combox .cblabel { font-size: 10px; font-weight: 700; letter-spacing: 0.14em; color: var(--accent); margin-bottom: 4px; }
+#s10 .combox .cbtext { font-size: 13px; font-weight: 700; color: white; line-height: 1.5; }
+
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<!-- SLIDE 1: タイトル -->
+<section class="slide active" id="s1">
+  <div class="eyebrow">社会人向け 国家資格 完全攻略ガイド</div>
+  <h1>危険物乙種第4類<br><span>最適勉強法</span></h1>
+  <p class="sub">初学者から再受験者まで — 失敗パターンを排除して最短ルートで合格する</p>
+  <div class="personas">
+    <div class="ptag a">
+      <div class="plabel">ペルソナ A</div>
+      <div class="ptitle">初学者（社会人）</div>
+      <div class="pdesc">化学・法律の知識ゼロからスタート。仕事をしながら40〜60時間の学習で合格を目指す</div>
+    </div>
+    <div class="ptag b">
+      <div class="plabel">ペルソナ B</div>
+      <div class="ptitle">再受験者（複数回不合格）</div>
+      <div class="pdesc">「勉強したのに落ちた」。失敗の原因を診断し、課題科目への集中投資で1発合格を狙う</div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="snum"><span data-counter data-target="35" data-suffix="%">0%</span></div>
+      <div class="slabel">平均合格率</div>
+    </div>
+    <div class="stat">
+      <div class="snum"><span data-counter data-target="3" data-suffix="科目">0科目</span></div>
+      <div class="slabel">試験科目数</div>
+    </div>
+    <div class="stat">
+      <div class="snum"><span data-counter data-target="40" data-suffix="〜60時間">0〜60時間</span></div>
+      <div class="slabel">必要学習時間</div>
+    </div>
+    <div class="stat">
+      <div class="snum"><span data-counter data-target="60" data-suffix="%以上">0%以上</span></div>
+      <div class="slabel">各科目の合格基準</div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 2: 2つの課題 -->
+<section class="slide" id="s2">
+  <div class="hdr">
+    <h2>この資料が解決する「2つの課題」</h2>
+    <p>あなたはどちらのペルソナ？まず自分の課題を把握することが合格への第一歩</p>
+  </div>
+  <div class="body">
+    <div class="pcol a">
+      <div class="colh">
+        <div class="cbadge">A</div>
+        <div>
+          <div class="ctitle">初学者（社会人）</div>
+          <div class="csub">ゼロからスタートする人の課題</div>
+        </div>
+      </div>
+      <div class="iitem">
+        <div class="ilabel">課題 1</div>
+        <div class="itext">どこから手をつければいいかわからない</div>
+        <div class="idesc">3科目の全体像が見えず、学習の優先順序が不明確。最初に法令から始めて失速するパターンが多い。</div>
+      </div>
+      <div class="iitem">
+        <div class="ilabel">課題 2</div>
+        <div class="itext">仕事と勉強の両立ができない</div>
+        <div class="idesc">社会人は1日の学習時間が限られる。スキマ時間の活用と現実的なスケジュール設計が必要。</div>
+      </div>
+      <div class="iitem">
+        <div class="ilabel">課題 3</div>
+        <div class="itext">教材が多すぎて選べない</div>
+        <div class="idesc">テキスト・問題集・アプリ・オンライン講座など選択肢が多く、何が最適かわからない。</div>
+      </div>
+      <div class="solbadge">
+        <span>解決策 → 正しい学習順序 × スケジュール設計 × 教材選定ガイド</span>
+      </div>
+    </div>
+    <div class="pcol b">
+      <div class="colh">
+        <div class="cbadge">B</div>
+        <div>
+          <div class="ctitle">再受験者（複数回不合格）</div>
+          <div class="csub">失敗を繰り返している人の課題</div>
+        </div>
+      </div>
+      <div class="iitem">
+        <div class="ilabel">課題 1</div>
+        <div class="itext">なぜ落ちたのか原因が特定できていない</div>
+        <div class="idesc">「勉強量は足りているはずなのに不合格」。科目別の足切りパターンを把握せずに同じ方法を繰り返している。</div>
+      </div>
+      <div class="iitem">
+        <div class="ilabel">課題 2</div>
+        <div class="itext">物理化学の計算問題を避け続けている</div>
+        <div class="idesc">再受験者の不合格最多原因。苦手意識から対策が甘くなり、6問中4問(60%)を取れずに足切りになる。</div>
+      </div>
+      <div class="iitem">
+        <div class="ilabel">課題 3</div>
+        <div class="itext">勉強法をリセットできずにいる</div>
+        <div class="idesc">前回と同じテキスト・同じ方法で再挑戦。アプローチを変えないと同じ結果になる可能性が高い。</div>
+      </div>
+      <div class="solbadge">
+        <span>解決策 → 失敗パターン診断 × 計算問題3パターン攻略 × 勉強法リセット</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 3: ダッシュボード -->
+<section class="slide" id="s3">
+  <div class="hdr">
+    <h2>試験の全体像ダッシュボード</h2>
+    <div class="hnote">出典: 消防試験研究センター / CIC日本建設情報センター</div>
+  </div>
+  <div class="dgrid">
+    <div class="dcard hl">
+      <div class="clabel">乙4 平均合格率</div>
+      <div><span class="bignum" data-counter data-target="35" data-suffix="%">0%</span></div>
+      <div class="cdesc">令和4〜5年度は30%前半まで低下傾向。他の乙種（約65%）と比較して約半分</div>
+    </div>
+    <div class="dcard">
+      <div class="clabel">合格基準</div>
+      <div><span class="bignum" data-counter data-target="60" data-suffix="%以上">0%</span></div>
+      <div class="cdesc" style="color:var(--danger);font-weight:700;">全3科目それぞれで達成が必要<br>1科目でも未達 → 即不合格（足切り）</div>
+    </div>
+    <div class="dcard">
+      <div class="clabel">必要学習時間</div>
+      <div style="display:flex;align-items:baseline;gap:5px;">
+        <span class="bignum" data-counter data-target="40">0</span>
+        <span style="font-size:16px;font-weight:700;color:var(--text-2);">〜</span>
+        <span class="bignum" data-counter data-target="60" data-suffix="h">0h</span>
+      </div>
+      <div class="cdesc">1日1時間ペースで約2ヶ月。社会人はスキマ時間の活用が必須</div>
+    </div>
+    <div class="dcard wide">
+      <div class="clabel">3科目の構成・出題数・合格ライン</div>
+      <div class="sublist">
+        <div class="srow">
+          <div class="sdot" style="background:#1E3A8A;"></div>
+          <div class="sname">危険物に関する法令</div>
+          <div class="sq">15問</div>
+          <div class="bwrap">
+            <div class="btrack" style="position:relative;">
+              <div class="bfill" style="background:var(--primary);" data-target="80%"></div>
+              <div class="pline"></div>
+            </div>
+            <div class="plabel">60%=9問</div>
+          </div>
+          <span class="tageasy">対策しやすい</span>
+        </div>
+        <div class="srow">
+          <div class="sdot" style="background:#EF4444;"></div>
+          <div class="sname">基礎的な物理学・化学</div>
+          <div class="sq">10問</div>
+          <div class="bwrap">
+            <div class="btrack" style="position:relative;">
+              <div class="bfill" style="background:#EF4444;" data-target="65%"></div>
+              <div class="pline"></div>
+            </div>
+            <div class="plabel">60%=6問</div>
+          </div>
+          <span class="taghard">足切り最多</span>
+        </div>
+        <div class="srow">
+          <div class="sdot" style="background:#10B981;"></div>
+          <div class="sname">危険物の性質・火災予防・消火</div>
+          <div class="sq">20問</div>
+          <div class="bwrap">
+            <div class="btrack" style="position:relative;">
+              <div class="bfill" style="background:#10B981;" data-target="75%"></div>
+              <div class="pline"></div>
+            </div>
+            <div class="plabel">60%=12問</div>
+          </div>
+          <span class="tageasy">暗記中心</span>
+        </div>
+      </div>
+    </div>
+    <div class="dcard">
+      <div class="clabel">他の乙種との合格率比較</div>
+      <table class="dtable">
+        <tr><th>資格</th><th>合格率</th><th>評価</th></tr>
+        <tr><td><strong>乙種第4類</strong></td><td style="font-weight:900;color:var(--danger);">約35%</td><td><span class="taghard">高難度</span></td></tr>
+        <tr><td>乙種（他）</td><td style="font-weight:700;color:var(--success);">約65%</td><td><span class="tageasy">標準</span></td></tr>
+        <tr><td>甲種</td><td style="font-weight:700;color:var(--danger);">約30%</td><td><span class="taghard">最高難</span></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 4: 失敗パターン分析 -->
+<section class="slide" id="s4">
+  <h2>再受験者の「失敗パターン」分析</h2>
+  <p class="s4s">複数の合格者・受験者サイトを横断分析 — 不合格の原因は科目別足切りに集中している</p>
+  <div class="body">
+    <div class="csect">
+      <div class="ctitle">不合格の主因：科目別足切り割合（推定分布）</div>
+      <div class="bgrp">
+        <div class="brow">
+          <div class="blabel">物理化学の足切り</div>
+          <div class="btrack2"><div class="bfill2 d" data-target="68%" style="--target:68%"></div></div>
+          <span class="bval" style="color:#EF4444;">68%</span>
+        </div>
+        <div class="brow">
+          <div class="blabel">法令の足切り</div>
+          <div class="btrack2"><div class="bfill2 w" data-target="18%" style="--target:18%"></div></div>
+          <span class="bval" style="color:#F59E0B;">18%</span>
+        </div>
+        <div class="brow">
+          <div class="blabel">性質・消火の足切り</div>
+          <div class="btrack2"><div class="bfill2 b" data-target="9%" style="--target:9%"></div></div>
+          <span class="bval" style="color:#3B82F6;">9%</span>
+        </div>
+        <div class="brow">
+          <div class="blabel">複数科目同時足切り</div>
+          <div class="btrack2"><div class="bfill2 b" data-target="5%" style="--target:5%"></div></div>
+          <span class="bval" style="color:#3B82F6;">5%</span>
+        </div>
+      </div>
+      <div class="ctitle" style="margin-top:8px;">物理化学で足切りになる得点パターン</div>
+      <div class="bgrp">
+        <div class="brow">
+          <div class="blabel">計算問題全滅（0/3問）</div>
+          <div class="btrack2"><div class="bfill2 d" data-target="52%" style="--target:52%"></div></div>
+          <span class="bval" style="color:#EF4444;">52%</span>
+        </div>
+        <div class="brow">
+          <div class="blabel">暗記系も不安定（3/7問）</div>
+          <div class="btrack2"><div class="bfill2 w" data-target="31%" style="--target:31%"></div></div>
+          <span class="bval" style="color:#F59E0B;">31%</span>
+        </div>
+        <div class="brow">
+          <div class="blabel">全体的に薄い対策</div>
+          <div class="btrack2"><div class="bfill2 b" data-target="17%" style="--target:17%"></div></div>
+          <span class="bval" style="color:#3B82F6;">17%</span>
+        </div>
+      </div>
+      <div class="callout">
+        <strong>最重要発見:</strong>
+        <p>不合格者の約7割が「物理化学の足切り」が原因。計算問題3パターンへの対策が合否を分ける最大要因</p>
+      </div>
+    </div>
+    <div class="isect">
+      <div class="icard r">
+        <div class="iclabel">最頻失敗パターン A</div>
+        <div class="ictext">計算問題を「後回し」にする</div>
+        <div class="icdesc">苦手意識から暗記中心に逃げ、本番で計算問題に白紙で臨む。6問中4問取れず足切り。</div>
+      </div>
+      <div class="icard r">
+        <div class="iclabel">最頻失敗パターン B</div>
+        <div class="ictext">前回と同じ方法で再挑戦</div>
+        <div class="icdesc">同じテキスト・同じスケジュールで2回目に挑む。アプローチを変えないと結果は変わらない。</div>
+      </div>
+      <div class="icard am">
+        <div class="iclabel">頻出失敗パターン C</div>
+        <div class="ictext">ノートまとめに時間をかけすぎる</div>
+        <div class="icdesc">インプットに偏った学習で問題演習時間が不足。乙4は「問題文の言い回しを覚える」アウトプット型が有効。</div>
+      </div>
+      <div class="icard bl">
+        <div class="iclabel">見落としがちな落とし穴</div>
+        <div class="ictext">最新版教材を使っていない</div>
+        <div class="icdesc">出題傾向が毎年更新される。旧版テキストでは法令改正や新傾向問題への対応が不十分になる。</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 5: 合格率推移 -->
+<section class="slide" id="s5">
+  <h2>合格率の推移と難易度ポジショニング</h2>
+  <p class="s5s">出典: 消防試験研究センター 試験実施状況 / グッドスクール 2026年最新版</p>
+  <div class="body">
+    <div class="cwrap">
+      <div class="legend">
+        <div class="li"><div class="ld" style="background:var(--primary);"></div>乙4合格率</div>
+        <div class="li"><div class="ld" style="background:#CBD5E1;"></div>他の乙種平均</div>
+        <div class="li"><div class="ld" style="background:transparent;border-bottom:2px dashed var(--danger);height:0;width:14px;"></div>合格基準(60%)</div>
+      </div>
+      <div class="svgwrap">
+        <svg viewBox="0 0 560 260" style="width:100%;height:auto;">
+          <line x1="60" y1="20" x2="60" y2="220" stroke="#E2E8F0" stroke-width="1"/>
+          <line x1="60" y1="220" x2="540" y2="220" stroke="#E2E8F0" stroke-width="1"/>
+          <line x1="60" y1="20" x2="540" y2="20" stroke="#F1F5F9" stroke-width="1"/>
+          <line x1="60" y1="65" x2="540" y2="65" stroke="#F1F5F9" stroke-width="1"/>
+          <line x1="60" y1="110" x2="540" y2="110" stroke="#F1F5F9" stroke-width="1"/>
+          <line x1="60" y1="155" x2="540" y2="155" stroke="#F1F5F9" stroke-width="1"/>
+          <text x="50" y="24" text-anchor="end" font-size="11" fill="#94A3B8">70%</text>
+          <text x="50" y="69" text-anchor="end" font-size="11" fill="#94A3B8">60%</text>
+          <text x="50" y="114" text-anchor="end" font-size="11" fill="#94A3B8">50%</text>
+          <text x="50" y="159" text-anchor="end" font-size="11" fill="#94A3B8">40%</text>
+          <text x="50" y="204" text-anchor="end" font-size="11" fill="#94A3B8">30%</text>
+          <line x1="60" y1="65" x2="540" y2="65" stroke="#EF4444" stroke-width="1.5" stroke-dasharray="6,4"/>
+          <text x="543" y="69" font-size="10" fill="#EF4444" font-weight="700">基準</text>
+          <text x="88" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">H30</text>
+          <text x="148" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R1</text>
+          <text x="208" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R2</text>
+          <text x="268" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R3</text>
+          <text x="328" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R4</text>
+          <text x="388" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R5</text>
+          <text x="448" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R6</text>
+          <text x="508" y="238" text-anchor="middle" font-size="11" fill="#94A3B8">R7</text>
+          <!-- 他の乙種 -->
+          <polyline class="line-path" points="88,42 148,44 208,40 268,42 328,44 388,46 448,44 508,42" stroke="#CBD5E1" stroke-width="2.5" fill="none" stroke-dasharray="600" stroke-dashoffset="600"/>
+          <!-- 乙4 -->
+          <polyline class="line-path" points="88,110 148,105 208,100 268,110 328,132 388,142 448,145 508,140" stroke="var(--primary)" stroke-width="3" fill="none" stroke-dasharray="600" stroke-dashoffset="600"/>
+          <circle cx="88" cy="110" r="5" fill="var(--primary)"/>
+          <circle cx="148" cy="105" r="5" fill="var(--primary)"/>
+          <circle cx="208" cy="100" r="5" fill="var(--primary)"/>
+          <circle cx="268" cy="110" r="5" fill="var(--primary)"/>
+          <circle cx="328" cy="132" r="5" fill="var(--danger)"/>
+          <circle cx="388" cy="142" r="5" fill="var(--danger)"/>
+          <circle cx="448" cy="145" r="5" fill="var(--danger)"/>
+          <circle cx="508" cy="140" r="5" fill="var(--danger)"/>
+          <text x="88" y="102" text-anchor="middle" font-size="10" fill="var(--primary)" font-weight="700">38%</text>
+          <text x="148" y="97" text-anchor="middle" font-size="10" fill="var(--primary)" font-weight="700">39%</text>
+          <text x="208" y="92" text-anchor="middle" font-size="10" fill="var(--primary)" font-weight="700">40%</text>
+          <text x="268" y="102" text-anchor="middle" font-size="10" fill="var(--primary)" font-weight="700">37%</text>
+          <text x="328" y="124" text-anchor="middle" font-size="10" fill="var(--danger)" font-weight="700">32%</text>
+          <text x="388" y="134" text-anchor="middle" font-size="10" fill="var(--danger)" font-weight="700">31%</text>
+          <text x="448" y="137" text-anchor="middle" font-size="10" fill="var(--danger)" font-weight="700">30%</text>
+          <text x="508" y="132" text-anchor="middle" font-size="10" fill="var(--danger)" font-weight="700">32%</text>
+          <text x="88" y="34" text-anchor="middle" font-size="10" fill="#94A3B8">65%</text>
+          <text x="508" y="34" text-anchor="middle" font-size="10" fill="#94A3B8">65%</text>
+          <text x="420" y="158" font-size="11" fill="var(--danger)" font-weight="700">低下傾向</text>
+          <defs><marker id="arrow" markerWidth="7" markerHeight="7" refX="6" refY="3" orient="auto"><path d="M0,0 L0,6 L7,3 z" fill="var(--danger)"/></marker></defs>
+          <line x1="370" y1="148" x2="415" y2="155" stroke="var(--danger)" stroke-width="1.5" marker-end="url(#arrow)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="rpanel">
+      <div class="ccard">
+        <div class="cctitle">危険物取扱者 種別別合格率比較</div>
+        <div class="crow actrow">
+          <div class="crname">乙種第4類（本資格）</div>
+          <div class="crrate" style="color:var(--danger);">約35%</div>
+        </div>
+        <div class="crow">
+          <div class="crname">乙種（第1〜3,5〜6類）</div>
+          <div class="crrate" style="color:var(--success);">約65%</div>
+        </div>
+        <div class="crow">
+          <div class="crname">甲種</div>
+          <div class="crrate" style="color:var(--danger);">約30%</div>
+        </div>
+        <div class="crow">
+          <div class="crname">丙種</div>
+          <div class="crrate" style="color:var(--success);">約55%</div>
+        </div>
+      </div>
+      <div class="ki">
+        <div class="kilabel">KEY INSIGHT</div>
+        <div class="kitext">乙4の合格率は他の乙種の約<strong style="color:var(--accent);">半分</strong>。ただし対策が正しければ十分独学合格できる難易度。過去問のパターンが固定化されているため、正しい方法で勉強した人の合格率は高い。</div>
+      </div>
+      <div class="r3">
+        <div class="r3title">合格率が低い3つの理由</div>
+        <div class="r3item"><span>1.</span><span>受験者層が広く対策なしでの受験者も多い</span></div>
+        <div class="r3item"><span>2.</span><span>物理化学の計算問題が苦手な人が多い</span></div>
+        <div class="r3item"><span>3.</span><span>3科目すべてで60%以上が必要な足切り制度</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 6: スケジュール比較 -->
+<section class="slide" id="s6">
+  <h2>ペルソナ別 最適学習スケジュール</h2>
+  <p class="s6s">初学者: 2ヶ月・約60時間 vs 再受験者: 1ヶ月・約30時間（課題科目集中型）</p>
+  <div class="tls">
+    <div class="tlb a">
+      <div class="tlh">
+        <span class="tlbadge">ペルソナ A</span>
+        <span class="tltitle">初学者 — 2ヶ月スケジュール（総学習時間: 40〜60時間）</span>
+        <span class="tlhrs">1日1〜1.5時間</span>
+      </div>
+      <div class="phases">
+        <div class="ph">
+          <div class="phwk">WEEK 1〜2</div>
+          <div class="phname">物理化学の基礎固め</div>
+          <div class="phdetail">燃焼・消火の基本概念、燃焼範囲、引火点の理解。計算問題の型を把握する。</div>
+          <div class="phhrs">約12〜16時間</div>
+        </div>
+        <div class="ph">
+          <div class="phwk">WEEK 3〜4</div>
+          <div class="phname">危険物の性質・消火</div>
+          <div class="phdetail">第4類（ガソリン・灯油・軽油等）の性質と指定数量を体系的に暗記。</div>
+          <div class="phhrs">約10〜14時間</div>
+        </div>
+        <div class="ph">
+          <div class="phwk">WEEK 5〜6</div>
+          <div class="phname">法令の集中インプット</div>
+          <div class="phdetail">製造所等の区分・標識・保安距離・過去問パターン。問題文の言い回しで覚える。</div>
+          <div class="phhrs">約10〜12時間</div>
+        </div>
+        <div class="ph">
+          <div class="phwk">WEEK 7〜8</div>
+          <div class="phname">全科目 過去問演習</div>
+          <div class="phdetail">3周以上の過去問演習。誤答の言語化と間隔反復で定着率を上げる。</div>
+          <div class="phhrs">約12〜16時間</div>
+        </div>
+      </div>
+    </div>
+    <div class="tlb b">
+      <div class="tlh">
+        <span class="tlbadge">ペルソナ B</span>
+        <span class="tltitle">再受験者 — 1ヶ月集中スケジュール（課題科目に70%投資）</span>
+        <span class="tlhrs">1日1.5〜2時間</span>
+      </div>
+      <div class="phases">
+        <div class="ph" style="border:2px solid var(--danger);">
+          <div class="phwk">WEEK 1〜2（最重要）</div>
+          <div class="phname">物理化学 計算問題3パターン完全マスター</div>
+          <div class="phdetail">熱量計算・体膨張・比重の3パターンのみに集中。計算問題を「得点源」に変換する。</div>
+          <div class="phhrs" style="color:var(--danger);">約16〜18時間（全体の約60%）</div>
+        </div>
+        <div class="ph">
+          <div class="phwk">WEEK 3</div>
+          <div class="phname">弱点科目の集中演習</div>
+          <div class="phdetail">前回不合格の科目を特定して集中対策。法令は過去問パターンを3周以上。</div>
+          <div class="phhrs">約10〜12時間</div>
+        </div>
+        <div class="ph">
+          <div class="phwk">WEEK 4</div>
+          <div class="phname">模擬試験 + 最終仕上げ</div>
+          <div class="phdetail">本番形式の模擬試験で時間配分を確認。全科目60%以上を安定させる。</div>
+          <div class="phhrs">約8〜10時間</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 7: 科目別攻略法 -->
+<section class="slide" id="s7">
+  <h2>科目別攻略法 — ペルソナ別の優先度</h2>
+  <p class="s7s">3科目それぞれで「初学者・再受験者が取るべきアクション」が異なる</p>
+  <div class="sgrid">
+    <div class="sc">
+      <div class="sch law">
+        <div class="scsubj">科目 1 / 15問</div>
+        <div class="sctitle">危険物に関する法令</div>
+        <div class="scmeta"><span class="sctag">暗記中心</span><span class="sctag">過去問固定パターン</span></div>
+      </div>
+      <div class="scbody">
+        <div class="ps a">
+          <div class="pslabel">ペルソナ A (初学者) 優先度: 中</div>
+          <div class="pspri">Week 5〜6に集中投資</div>
+          <div class="pstip">製造所等の区分・標識・保安距離の分類から始める。ノートまとめより過去問の反復が効果的。</div>
+        </div>
+        <div class="ps b">
+          <div class="pslabel">ペルソナ B (再受験者) 優先度: 低〜中</div>
+          <div class="pspri">既存知識を過去問で確認</div>
+          <div class="pstip">前回受験の知識を活かし、苦手分野のみ集中補強。時間を物理化学に回す。</div>
+        </div>
+        <div class="tips">
+          <div class="tiprow"><div class="tipdot"></div><div class="tiptext">過去問と類似問題が繰り返し出題（固定パターン）</div></div>
+          <div class="tiprow"><div class="tipdot"></div><div class="tiptext">一問一答形式のアプリ演習が最も効率的</div></div>
+          <div class="tiprow"><div class="tipdot"></div><div class="tiptext">目標: 15問中12問（80%）以上を安定確保</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sch phys">
+        <div class="scsubj">科目 2 / 10問 【最重要】</div>
+        <div class="sctitle">基礎的な物理学・化学</div>
+        <div class="scmeta"><span class="sctag">計算3パターン</span><span class="sctag">足切り最多</span></div>
+      </div>
+      <div class="scbody">
+        <div class="ps a">
+          <div class="pslabel">ペルソナ A (初学者) 優先度: 最高</div>
+          <div class="pspri">最初の2週間で基礎確立</div>
+          <div class="pstip">燃焼・消火の基礎概念を先に理解してから計算問題に入る。文系でも四則演算レベルでOK。</div>
+        </div>
+        <div class="ps b">
+          <div class="pslabel">ペルソナ B (再受験者) 優先度: 最高</div>
+          <div class="pspri">計算問題3パターンに全力投入</div>
+          <div class="pstip">熱量・体膨張・指定数量の3パターンをマスターすれば計算問題でほぼ満点が狙える。</div>
+        </div>
+        <div class="tips">
+          <div class="tiprow"><div class="tipdot" style="background:var(--danger);"></div><div class="tiptext">計算問題は10問中3問程度だが、苦手意識で0点→足切りに直結</div></div>
+          <div class="tiprow"><div class="tipdot" style="background:var(--danger);"></div><div class="tiptext">暗記系7問は燃焼範囲・引火点・危険物の特性が中心</div></div>
+          <div class="tiprow"><div class="tipdot" style="background:var(--danger);"></div><div class="tiptext">目標: 10問中7問（70%）以上を確実に確保</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="sc">
+      <div class="sch nat">
+        <div class="scsubj">科目 3 / 20問</div>
+        <div class="sctitle">危険物の性質・火災予防・消火</div>
+        <div class="scmeta"><span class="sctag">暗記量最多</span><span class="sctag">得点源になりやすい</span></div>
+      </div>
+      <div class="scbody">
+        <div class="ps a">
+          <div class="pslabel">ペルソナ A (初学者) 優先度: 高</div>
+          <div class="pspri">Week 3〜4で体系的に暗記</div>
+          <div class="pstip">第4類（ガソリン・灯油・軽油等）の指定数量と引火点を表でまとめて覚える。</div>
+        </div>
+        <div class="ps b">
+          <div class="pslabel">ペルソナ B (再受験者) 優先度: 中</div>
+          <div class="pspri">既存知識を過去問で確認・補強</div>
+          <div class="pstip">前回受験時の暗記が活きやすい科目。重点は燃焼と消火の基礎知識（毎年多く出題）。</div>
+        </div>
+        <div class="tips">
+          <div class="tiprow"><div class="tipdot" style="background:var(--success);"></div><div class="tiptext">20問と出題数が多く、得点源として重要</div></div>
+          <div class="tiprow"><div class="tipdot" style="background:var(--success);"></div><div class="tiptext">指定数量・倍数計算の問題が頻出</div></div>
+          <div class="tiprow"><div class="tipdot" style="background:var(--success);"></div><div class="tiptext">目標: 20問中15問（75%）以上で全体スコアを底上げ</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 8: 計算問題3パターン -->
+<section class="slide" id="s8">
+  <h2>物理化学 計算問題3パターン完全攻略</h2>
+  <p class="s8s">再受験者最重要課題 — この3パターンをマスターすれば計算問題でほぼ満点が狙える</p>
+  <div class="cgrid">
+    <div class="cc">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="ccnum">1</div>
+        <div><div class="cctype">パターン 1</div><div class="cctitle">熱量（発熱量）計算</div></div>
+      </div>
+      <div class="ccform"><span>Q = m × c × ΔT</span><br>Q: 熱量(J) m: 質量(g)<br>c: 比熱(J/g℃) ΔT: 温度差</div>
+      <div class="ccsteps">
+        <div class="strow"><div class="stnum">1</div><div class="sttext">「熱量・温度差・比熱・質量」の4変数を整理</div></div>
+        <div class="strow"><div class="stnum">2</div><div class="sttext">公式に代入して求める変数を計算</div></div>
+        <div class="strow"><div class="stnum">3</div><div class="sttext">単位（J/cal）の換算に注意（1cal=4.2J）</div></div>
+      </div>
+      <div class="cctip">
+        <div class="ctlabel">試験頻出ポイント</div>
+        <div class="cttext">「100gの水を20℃から60℃に加熱するのに必要な熱量は?」の形式がほぼ毎回出題される</div>
+      </div>
+    </div>
+    <div class="cc">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="ccnum">2</div>
+        <div><div class="cctype">パターン 2</div><div class="cctitle">体膨張・気体の体積変化</div></div>
+      </div>
+      <div class="ccform"><span>V₂ = V₁ × (T₂ / T₁)</span><br>T: 絶対温度(K = ℃ + 273)<br>圧力一定（シャルルの法則）</div>
+      <div class="ccsteps">
+        <div class="strow"><div class="stnum">1</div><div class="sttext">℃を絶対温度K（+273）に変換する</div></div>
+        <div class="strow"><div class="stnum">2</div><div class="sttext">V₁×T₂÷T₁で体積を計算</div></div>
+        <div class="strow"><div class="stnum">3</div><div class="sttext">「何倍になるか」を確認して回答選択</div></div>
+      </div>
+      <div class="cctip">
+        <div class="ctlabel">試験頻出ポイント</div>
+        <div class="cttext">+273の変換忘れが最多ミス。計算前に「まずK変換」を習慣化するだけで正答率が大幅アップ</div>
+      </div>
+    </div>
+    <div class="cc">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <div class="ccnum">3</div>
+        <div><div class="cctype">パターン 3</div><div class="cctitle">指定数量・倍数計算</div></div>
+      </div>
+      <div class="ccform"><span>倍数 = 貯蔵量 ÷ 指定数量</span><br>複数品目: 各倍数の合計≥1<br>で危険物取扱者が必要</div>
+      <div class="ccsteps">
+        <div class="strow"><div class="stnum">1</div><div class="sttext">各品目の指定数量を暗記（ガソリン200L等）</div></div>
+        <div class="strow"><div class="stnum">2</div><div class="sttext">各品目の「貯蔵量÷指定数量」を計算</div></div>
+        <div class="strow"><div class="stnum">3</div><div class="sttext">複数品目の場合は倍数を合計して判定</div></div>
+      </div>
+      <div class="cctip">
+        <div class="ctlabel">主要指定数量（必須暗記）</div>
+        <div class="cttext">ガソリン: 200L / 灯油・軽油: 1,000L / 重油: 2,000L / エタノール: 400L</div>
+      </div>
+    </div>
+    <div class="bcallout">
+      <div class="bctext">この3パターンだけで計算問題のほぼ全問に対応できる。必要な数学は<span class="bchi">四則演算のみ</span></div>
+      <div style="text-align:right;">
+        <div style="font-size:12px;color:#93C5FD;">文系・計算苦手な人でも</div>
+        <div class="bchi">得点源に変えられる</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SLIDE 9: 教材マトリックス -->
+<section class="slide" id="s9">
+  <h2>教材・ツール比較マトリックス</h2>
+  <p class="s9s">出典: STUDYing / ユーキャン / SAT 各社情報を基に構成（2026年版）</p>
+  <div>
+    <table>
+      <thead>
+        <tr>
+          <th style="width:190px;">教材・ツール</th>
+          <th>コスト</th>
+          <th>スキマ時間</th>
+          <th>計算問題</th>
+          <th>過去問網羅</th>
+          <th>対象ペルソナ</th>
+          <th>おすすめ度</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="rec">
+          <td>過去問中心テキスト（最新版）<span class="tagrec">最推奨</span></td>
+          <td>1,500〜2,000円</td>
+          <td><div class="sw"><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div></div></td>
+          <td><span class="taga">A</span> <span class="tagb">B</span></td>
+          <td style="font-weight:900;color:var(--primary);">★★★★★</td>
+        </tr>
+        <tr class="rec">
+          <td>学習アプリ（乙4専用）<span class="tagrec">推奨</span></td>
+          <td>無料〜1,000円</td>
+          <td><div class="sw"><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><span class="taga">A</span> <span class="tagb">B</span></td>
+          <td style="font-weight:900;color:var(--primary);">★★★★☆</td>
+        </tr>
+        <tr>
+          <td>オンライン講座（STUDYing等）</td>
+          <td>8,000〜15,000円</td>
+          <td><div class="sw"><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div></div></td>
+          <td><span class="taga">A</span></td>
+          <td style="font-weight:700;color:var(--text-2);">★★★★☆</td>
+        </tr>
+        <tr>
+          <td>通信講座（ユーキャン等）</td>
+          <td>25,000〜40,000円</td>
+          <td><div class="sw"><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--primary);"></div></div></td>
+          <td><span class="taga">A</span></td>
+          <td style="font-weight:700;color:var(--text-2);">★★★☆☆</td>
+        </tr>
+        <tr>
+          <td>YouTube無料動画</td>
+          <td>無料</td>
+          <td><div class="sw"><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--accent);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--primary);"></div><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><span class="tagb">B（補助）</span></td>
+          <td style="font-weight:700;color:var(--text-2);">★★☆☆☆</td>
+        </tr>
+        <tr>
+          <td>ノート手書きまとめ</td>
+          <td>—</td>
+          <td><div class="sw"><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td><div class="sw"><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div><div class="sdot" style="background:var(--line);"></div></div></td>
+          <td>非推奨</td>
+          <td style="font-weight:700;color:var(--danger);">★☆☆☆☆</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="lrow">
+    <div style="display:flex;align-items:center;gap:5px;"><div class="sdot" style="background:var(--primary);width:9px;height:9px;border-radius:50%;"></div><span>高評価</span></div>
+    <div style="display:flex;align-items:center;gap:5px;"><div class="sdot" style="background:var(--line);width:9px;height:9px;border-radius:50%;"></div><span>低評価</span></div>
+    <span style="color:var(--danger);font-weight:700;font-size:12px;margin-left:12px;">ノートまとめは「時間対効果」が最も低い — 過去問演習に時間を振り替えることが推奨</span>
+  </div>
+</section>
+
+<!-- SLIDE 10: 今日からやること -->
+<section class="slide" id="s10">
+  <h2>ペルソナ別「今日からやること」</h2>
+  <p class="s10s">「いつか始める」をやめて今日から動く — 具体的な3ステップアクションプラン</p>
+  <div class="agrid">
+    <div class="acol a">
+      <div class="ach">
+        <span class="acbadge">ペルソナ A</span>
+        <span class="actitle">初学者の3ステップ</span>
+      </div>
+      <div class="acsub">目標: 2ヶ月後の試験で一発合格</div>
+      <div class="stlist">
+        <div class="sti">
+          <div class="stc">1</div>
+          <div>
+            <div class="staction">今日: 最新テキスト + 学習アプリを準備する</div>
+            <div class="stdetail">過去問が収録された最新版テキスト（2026年対応）と無料の乙4専用アプリをダウンロード。教材選びに1週間かけない。</div>
+          </div>
+        </div>
+        <div class="sti">
+          <div class="stc">2</div>
+          <div>
+            <div class="staction">今週: 物理化学から学習開始（法令は後回し）</div>
+            <div class="stdetail">燃焼の基礎（引火点・燃焼範囲・消火の3要素）からスタート。最初に法令に手をつける初心者の落とし穴を避ける。</div>
+          </div>
+        </div>
+        <div class="sti">
+          <div class="stc">3</div>
+          <div>
+            <div class="staction">毎日: 通勤スキマ時間に1問一答アプリ</div>
+            <div class="stdetail">1日15〜20分のアプリ演習 + 帰宅後30〜45分のテキスト学習を継続。スキマ時間の積み上げが合否を決める。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="acol b">
+      <div class="ach">
+        <span class="acbadge">ペルソナ B</span>
+        <span class="actitle">再受験者の3ステップ</span>
+      </div>
+      <div class="acsub">目標: 1ヶ月で失敗パターンを根絶して合格</div>
+      <div class="stlist">
+        <div class="sti">
+          <div class="stc">1</div>
+          <div>
+            <div class="staction">今日: 前回の不合格原因を科目別に特定する</div>
+            <div class="stdetail">試験結果通知書で各科目の得点を確認。物理化学で足切りなら「計算問題3パターン攻略」に直行。法令なら過去問パターン演習を強化。</div>
+          </div>
+        </div>
+        <div class="sti">
+          <div class="stc">2</div>
+          <div>
+            <div class="staction">今週: 計算問題3パターンのみに集中する</div>
+            <div class="stdetail">熱量・体膨張・指定数量の3パターンを毎日1パターンずつ練習。「絶対に落とせない問題」から確実に得点源にする。</div>
+          </div>
+        </div>
+        <div class="sti">
+          <div class="stc">3</div>
+          <div>
+            <div class="staction">今月末: 教材と勉強法を完全リセットする</div>
+            <div class="stdetail">前回と同じテキスト・同じ方法は使わない。オンライン講座か最新版テキストに切り替え、問題演習中心にアプローチを変える。</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="combox">
+      <div class="cblabel">両ペルソナ共通 — 合格の最短ルート</div>
+      <div class="cbtext">「過去問中心 + 間隔反復（同じ問題を3周以上） + 科目別足切り対策」が合格者に共通する唯一の戦略<br><span style="font-size:11px;color:#475569;margin-top:4px;display:block;">出典: STUDYing / ユーキャン / 独学.info / Next Education 2026年版</span></div>
+    </div>
+  </div>
+</section>
+
+<div class="page-num"><span id="cur">1</span> / <span id="total">10</span></div>
+
+<script>
+(() => {
+  const slides = document.querySelectorAll('.slide');
+  const progressEl = document.getElementById('progress');
+  const curEl = document.getElementById('cur');
+  const totalEl = document.getElementById('total');
+  let cur = 0;
+  totalEl.textContent = slides.length;
+  const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+  function animateCounter(el) {
+    const target = parseFloat(el.dataset.target);
+    if (isNaN(target)) return;
+    const decimals = parseInt(el.dataset.decimals || '0', 10);
+    const prefix = el.dataset.prefix || '';
+    const suffix = el.dataset.suffix || '';
+    const duration = parseInt(el.dataset.duration || '1400', 10);
+    const startTime = performance.now();
+    const fmt = v => prefix + (decimals > 0 ? v.toFixed(decimals) : Math.round(v).toLocaleString('en-US')) + suffix;
+    function tick(t) {
+      const p = Math.min((t - startTime) / duration, 1);
+      el.textContent = fmt(target * easeOutCubic(p));
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  function animateBars(slide) {
+    slide.querySelectorAll('.bfill, .bfill2, .bar-fill').forEach(el => {
+      const t = el.dataset.target || el.style.getPropertyValue('--target');
+      if (t) el.style.setProperty('--target', t);
+      el.style.animation = 'none';
+      void el.offsetWidth;
+      el.style.animation = 'bar-grow 1.2s cubic-bezier(0.22,1,0.36,1) forwards';
+    });
+  }
+
+  function animateLines(slide) {
+    slide.querySelectorAll('.line-path').forEach(el => {
+      el.style.animation = 'none';
+      void el.getBoundingClientRect();
+      el.style.animation = 'line-draw 1.6s cubic-bezier(0.22,1,0.36,1) forwards';
+    });
+  }
+
+  function show(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    const slide = slides[i];
+    slide.classList.add('active');
+    curEl.textContent = i + 1;
+    progressEl.style.width = ((i + 1) / slides.length * 100) + '%';
+    animateBars(slide);
+    animateLines(slide);
+    slide.querySelectorAll('[data-counter]').forEach(el => animateCounter(el));
+  }
+
+  function next() { if (cur < slides.length - 1) { cur++; show(cur); } }
+  function prev() { if (cur > 0) { cur--; show(cur); } }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { next(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') { prev(); e.preventDefault(); }
+    if (e.key === 'Home') { cur = 0; show(cur); e.preventDefault(); }
+    if (e.key === 'End') { cur = slides.length - 1; show(cur); e.preventDefault(); }
+  });
+
+  document.addEventListener('click', e => {
+    if (e.target.closest('a, button, input, textarea, select')) return;
+    if (window.getSelection && window.getSelection().toString()) return;
+    if (e.clientX > window.innerWidth / 2) next(); else prev();
+  });
+
+  show(0);
+})();
+</script>
+</body>
+</html>
