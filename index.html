@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>危険物乙4 最適勉強法 — AI社員レポート</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1E3A8A;
+      --navy-dark: #0F2563;
+      --amber: #F59E0B;
+      --blue-a: #0EA5E9;
+      --orange-b: #F97316;
+      --text: #0F172A;
+      --muted: #64748B;
+      --border: #E2E8F0;
+      --surface: #F8FAFC;
+    }
+
+    body {
+      font-family: 'Noto Sans JP', sans-serif;
+      background: #F1F5F9;
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, var(--navy-dark) 0%, var(--navy) 60%, #2563EB 100%);
+      padding: 64px 48px 56px;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, rgba(245,158,11,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .header-inner { max-width: 960px; margin: 0 auto; position: relative; }
+    .header-tag {
+      display: inline-block;
+      background: rgba(245,158,11,.2);
+      color: var(--amber);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .2em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      color: #fff;
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 900;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    header p {
+      color: rgba(255,255,255,.75);
+      font-size: 15px;
+      line-height: 1.8;
+      max-width: 600px;
+      margin-bottom: 32px;
+    }
+    .persona-chips { display: flex; gap: 12px; flex-wrap: wrap; }
+    .chip {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 13px; font-weight: 500; color: #fff;
+    }
+    .chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+    /* ── Main ── */
+    main { max-width: 960px; margin: 0 auto; padding: 56px 24px; }
+
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* ── Cards ── */
+    .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 56px; }
+
+    .card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      transition: transform .2s, box-shadow .2s;
+      display: flex; flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+    .card-accent { height: 5px; }
+    .card-body { padding: 32px; flex: 1; display: flex; flex-direction: column; }
+    .card-icon {
+      width: 48px; height: 48px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
+    .card h2 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; margin-bottom: 24px; flex: 1; }
+    .card-meta { display: flex; gap: 16px; margin-bottom: 24px; }
+    .meta-item { font-size: 12px; color: var(--muted); }
+    .meta-item strong { display: block; font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+    .card-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 12px 16px;
+      border-radius: 6px;
+      font-size: 14px; font-weight: 700;
+      text-decoration: none; color: inherit;
+      transition: opacity .15s;
+    }
+    .card-btn:hover { opacity: .85; }
+    .card-btn svg { width: 16px; height: 16px; }
+
+    /* ── Personas ── */
+    .personas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 56px; }
+    .persona-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+    }
+    .persona-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; padding-left: 12px; }
+    .persona-card ul { list-style: none; }
+    .persona-card ul li {
+      font-size: 13px; color: var(--muted); line-height: 1.7;
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .persona-card ul li:last-child { border-bottom: none; }
+    .persona-card ul li::before { content: '→ '; font-weight: 700; }
+
+    /* ── Stats bar ── */
+    .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; margin-bottom: 56px; }
+    .stat {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px 20px;
+      text-align: center;
+    }
+    .stat-num { font-size: 32px; font-weight: 900; color: var(--navy); line-height: 1; margin-bottom: 6px; }
+    .stat-label { font-size: 12px; color: var(--muted); line-height: 1.4; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 32px;
+      font-size: 12px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    @media (max-width: 640px) {
+      .cards, .personas, .stats { grid-template-columns: 1fr; }
+      header { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div class="header-tag">AI社員 生成レポート</div>
+    <h1>社会人向け<br>危険物乙種第4類<br>最適勉強法</h1>
+    <p>AI社員ワークフローがリサーチ・分析・ビジュアライズを自動実行。<br>初学者から再受験者まで、合格に直結する戦略を体系化しました。</p>
+    <div class="persona-chips">
+      <div class="chip"><span class="chip-dot" style="background:#0EA5E9;"></span>ペルソナA: 初学者（社会人）</div>
+      <div class="chip"><span class="chip-dot" style="background:#F97316;"></span>ペルソナB: 再受験者（複数回不合格）</div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- Stats -->
+  <div class="section-label">試験データ</div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">30<span style="font-size:18px">%</span></div>
+      <div class="stat-label">令和5年度<br>合格率</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">35<span style="font-size:18px">問</span></div>
+      <div class="stat-label">総出題数<br>（3科目合計）</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">60<span style="font-size:18px">h</span></div>
+      <div class="stat-label">推奨<br>学習時間</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2<span style="font-size:18px">ヶ月</span></div>
+      <div class="stat-label">初学者の<br>標準期間</div>
+    </div>
+  </div>
+
+  <!-- Output cards -->
+  <div class="section-label">成果物</div>
+  <div class="cards">
+
+    <!-- Slide card -->
+    <a class="card" href="presentation.html" target="_blank">
+      <div class="card-accent" style="background:linear-gradient(90deg,#1E3A8A,#2563EB);"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:#EFF6FF;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#1E3A8A" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <h2>スピーチ用スライド</h2>
+        <p>10枚構成。初学者・再受験者のペルソナ対比、失敗パターン分析、ペルソナ別スケジュール、物理化学3パターン攻略など。アニメーション付き本格チャート搭載。</p>
+        <div class="card-meta">
+          <div class="meta-item"><strong>10枚</strong>スライド数</div>
+          <div class="meta-item"><strong>HTML</strong>フォーマット</div>
+          <div class="meta-item"><strong>2ペルソナ</strong>対応</div>
+        </div>
+        <div class="card-btn" style="background:#EFF6FF; color:#1E3A8A;">
+          スライドを開く
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+
+    <!-- Report card -->
+    <a class="card" href="report.html" target="_blank">
+      <div class="card-accent" style="background:linear-gradient(90deg,#F59E0B,#F97316);"></div>
+      <div class="card-body">
+        <div class="card-icon" style="background:#FFFBEB;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#F59E0B" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h2>詳細リサーチレポート</h2>
+        <p>約6,500字・8章構成の詳細分析レポート。科目別攻略法・教材比較・失敗パターン・将来シナリオ（楽観/ベース/悲観）まで深掘り。補足情報含む詳細資料。</p>
+        <div class="card-meta">
+          <div class="meta-item"><strong>8章</strong>構成</div>
+          <div class="meta-item"><strong>6,500字</strong>分量</div>
+          <div class="meta-item"><strong>HTML</strong>フォーマット</div>
+        </div>
+        <div class="card-btn" style="background:#FFFBEB; color:#B45309;">
+          レポートを開く
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </div>
+    </a>
+
+  </div>
+
+  <!-- Personas -->
+  <div class="section-label">対象読者（2ペルソナ）</div>
+  <div class="personas">
+    <div class="persona-card" style="border-left: 4px solid #0EA5E9;">
+      <h3 style="color:#0369A1;">ペルソナA: 初学者（社会人）</h3>
+      <ul>
+        <li>化学・法律の知識ゼロからスタート</li>
+        <li>仕事をしながら学習時間を確保</li>
+        <li>正しい学習順序で2ヶ月集中</li>
+        <li>物理化学 → 性質 → 法令の順が最短</li>
+      </ul>
+    </div>
+    <div class="persona-card" style="border-left: 4px solid #F97316;">
+      <h3 style="color:#C2410C;">ペルソナB: 再受験者（複数回不合格）</h3>
+      <ul>
+        <li>「勉強したのに落ちた」を繰り返している</li>
+        <li>失敗原因の大半は物理化学の足切り</li>
+        <li>計算問題3パターンへの集中投資が鍵</li>
+        <li>勉強法をリセットして1ヶ月で再挑戦</li>
+      </ul>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>生成日: 2026-05-11 &nbsp;|&nbsp; AI社員ワークフロー（researcher → reporter + slide-maker）</p>
+</footer>
+
+</body>
+</html>
